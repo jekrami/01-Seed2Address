@@ -328,25 +328,25 @@ def process_seed_batch_native(batch_data: Tuple[List[str], int, int, List[str]])
     seeds, num_addresses, start_idx, wordlist = batch_data
     results = []
     
-    # Define paths - Fixed to match expected output format
+    # Define paths - Fixed to match expected output format exactly
     # Each tuple: (base_path, address_type, path_formatter)
     paths = [
         # BIP32: m/0'/0'/x'
         ("m/0'/0'", "P2PKH", lambda i: f"{i}'"),
-        
-        # BIP44: m/44'/0'/0'/0/x
-        ("m/44'/0'/0'/0", "P2PKH", lambda i: str(i)),
-        
-        # BIP49: m/49'/0'/0'/0/x
-        ("m/49'/0'/0'/0", "P2WPKH nested in P2SH", lambda i: str(i)),
-        
-        # BIP84: m/84'/0'/0'/0/x
-        ("m/84'/0'/0'/0", "P2WPKH", lambda i: str(i)),
-        
-        # BIP141 P2WPKH nested in P2SH: m/0/x
-        ("m/0", "P2WPKH nested in P2SH", lambda i: str(i)),
-        
-        # BIP141 P2WPKH: m/0/x'
+
+        # BIP44: m/44'/0'/0'/0/x' (WITH apostrophe on final index to match expected)
+        ("m/44'/0'/0'/0", "P2PKH", lambda i: f"{i}'"),
+
+        # BIP49: m/49'/0'/0'/0/x' (WITH apostrophe on final index to match expected)
+        ("m/49'/0'/0'/0", "P2WPKH nested in P2SH", lambda i: f"{i}'"),
+
+        # BIP84: m/84'/0'/0'/0/x' (WITH apostrophe on final index to match expected)
+        ("m/84'/0'/0'/0", "P2WPKH", lambda i: f"{i}'"),
+
+        # Script Semantics P2WPKH nested in P2SH: m/0/x'
+        ("m/0", "P2WPKH nested in P2SH", lambda i: f"{i}'"),
+
+        # Script Semantics P2WPKH: m/0/x'
         ("m/0", "P2WPKH", lambda i: f"{i}'"),
     ]
     
